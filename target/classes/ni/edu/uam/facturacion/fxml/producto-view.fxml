@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="700.0" prefWidth="950.0" style="-fx-background-color: #f4f7f6; -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ni.edu.uam.sistemafacturacionjavafx.controller.ProductoController">
+
+    <center>
+        <VBox spacing="20">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30"/>
+            </padding>
+
+            <!-- Título de la vista -->
+            <Label text="📦 Gestión de Productos"
+                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+            <!-- Tarjeta del Formulario (Fondo blanco, borde redondeado) -->
+            <GridPane hgap="15" vgap="15"
+                      style="-fx-background-color: #ffffff; -fx-padding: 25; -fx-background-radius: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-border-width: 1;">
+
+                <columnConstraints>
+                    <ColumnConstraints minWidth="90" halignment="RIGHT"/>
+                    <ColumnConstraints minWidth="200" hgrow="ALWAYS"/>
+                    <ColumnConstraints minWidth="90" halignment="RIGHT"/>
+                    <ColumnConstraints minWidth="200" hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <!-- Fila 0 -->
+                <Label text="Código:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtCodigo" style="-fx-background-color: #f8f9fa; -fx-border-color: #ced4da; -fx-border-radius: 5; -fx-padding: 8;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Categoría:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <ComboBox fx:id="cmbCategoria" maxWidth="Infinity" style="-fx-background-color: #f8f9fa; -fx-border-color: #ced4da; -fx-border-radius: 5;" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <!-- Fila 1 -->
+                <Label text="Nombre:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtNombre" style="-fx-background-color: #f8f9fa; -fx-border-color: #ced4da; -fx-border-radius: 5; -fx-padding: 8;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Precio:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtPrecio" style="-fx-background-color: #f8f9fa; -fx-border-color: #ced4da; -fx-border-radius: 5; -fx-padding: 8;" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <!-- Fila 2 -->
+                <Label text="Existencia:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtExistencia" style="-fx-background-color: #f8f9fa; -fx-border-color: #ced4da; -fx-border-radius: 5; -fx-padding: 8;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Activo:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <CheckBox fx:id="chkActivo" style="-fx-text-fill: #2c3e50; -fx-cursor: hand;" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                <!-- Fila 3: Imagen y Botón unificados -->
+                <Label text="Imagen:" style="-fx-font-weight: bold; -fx-text-fill: #34495e;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+
+                <HBox spacing="15" alignment="CENTER_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.columnSpan="3">
+                    <VBox style="-fx-border-color: #ced4da; -fx-border-radius: 5; -fx-background-color: #f8f9fa; -fx-padding: 5; -fx-alignment: center;">
+                        <ImageView fx:id="imgProducto" fitWidth="100" fitHeight="100" preserveRatio="true"/>
+                    </VBox>
+                    <Button fx:id="btnImagen" text="🖼️ Buscar imagen" onAction="#seleccionarImagen"
+                            style="-fx-background-color: #7f8c8d; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-background-radius: 5; -fx-cursor: hand;"/>
+                </HBox>
+            </GridPane>
+
+            <!-- Botones de Acción (Guardar y Cerrar) -->
+            <HBox spacing="15" alignment="CENTER_RIGHT">
+                <Button fx:id="btnGuardar" text="💾 Guardar Producto" onAction="#guardar"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 6; -fx-cursor: hand;"/>
+                <Button fx:id="btnCerrar" text="❌ Cancelar" onAction="#cerrar"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 6; -fx-cursor: hand;"/>
+            </HBox>
+
+            <!-- Tabla de Productos (Ocupa el resto del espacio) -->
+            <TableView fx:id="tblProductos" VBox.vgrow="ALWAYS"
+                       style="-fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8;">
+                <columnResizePolicy>
+                    <!-- Hace que las columnas se estiren para ocupar todo el ancho de la tabla automáticamente -->
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+                <columns>
+                    <TableColumn fx:id="colCodigo" text="Código" prefWidth="80" style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="colNombre" text="Nombre" prefWidth="200"/>
+                    <TableColumn fx:id="colCategoria" text="Categoría" prefWidth="120"/>
+                    <!-- Alineamos el precio a la derecha, estándar en sistemas contables -->
+                    <TableColumn fx:id="colPrecio" text="Precio" prefWidth="100" style="-fx-alignment: CENTER-RIGHT;"/>
+                    <TableColumn fx:id="colExistencia" text="Existencia" prefWidth="90" style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="colActivo" text="Activo" prefWidth="70" style="-fx-alignment: CENTER;"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>
