@@ -9,6 +9,7 @@ import java.io.IOException;
 public class MenuPrincipalController {
     @FXML
     private void abrirProductos() {
+
         try {
             SceneManager.abrirVentana(
                     "/ni/edu/uam/facturacion/fxml/producto-view.fxml",
