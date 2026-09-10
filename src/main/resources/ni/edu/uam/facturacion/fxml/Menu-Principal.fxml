@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #f4f7f6;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ni.edu.uam.facturacion.controller.MenuPrincipalController">
+
+    <top>
+        <VBox>
+            <MenuBar style="-fx-background-color: #ffffff; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
+                <menus>
+                    <Menu text="Archivo">
+                        <items>
+                            <MenuItem fx:id="mnuProductos" onAction="#abrirProductos" text="Productos" />
+                            <MenuItem fx:id="mnuSalir" onAction="#salir" text="Salir" />
+                        </items>
+                    </Menu>
+                </menus>
+            </MenuBar>
+
+            <ToolBar style="-fx-background-color: #ffffff; -fx-border-color: #dcdde1; -fx-border-width: 0 0 1 0; -fx-padding: 10 15 10 15;">
+                <items>
+                    <Button fx:id="btnProductos" onAction="#abrirProductos" style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8 16 8 16; -fx-background-radius: 6; -fx-cursor: hand;" text="📦 Productos" />
+
+                    <Pane HBox.hgrow="ALWAYS" />
+
+                    <Button fx:id="btnSalir" onAction="#salir" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8 16 8 16; -fx-background-radius: 6; -fx-cursor: hand;" text="🚪 Salir" />
+                </items>
+            </ToolBar>
+         <VBox prefHeight="57.0" prefWidth="900.0">
+            <children>
+               <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@images/supermercados_la_union.jpg" />
+                  </image>
+                  <VBox.margin>
+                     <Insets left="350.0" />
+                  </VBox.margin></ImageView>
+            </children>
+         </VBox>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="10">
+            <Label style="-fx-font-size: 42px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;" text="Sistema de Facturación" />
+
+            <Label style="-fx-font-size: 18px; -fx-text-fill: #7f8c8d; -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;" text="Bienvenido al panel principal" />
+
+            <BorderPane.margin>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </BorderPane.margin>
+        </VBox>
+    </center>
+
+</BorderPane>

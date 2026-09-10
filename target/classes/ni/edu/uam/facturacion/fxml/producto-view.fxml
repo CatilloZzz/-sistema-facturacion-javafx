@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ni.edu.uam.facturacion.controller.ProductoController">
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="100"/>
+                    <ColumnConstraints minWidth="180"/>
+                    <ColumnConstraints minWidth="100"/>
+                    <ColumnConstraints minWidth="180"/>
+                </columnConstraints>
+
+                <Label text="Código:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtCodigo" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Categoría:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <ComboBox fx:id="cmbCategoria" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <Label text="Nombre:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtNombre" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Precio:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtPrecio" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <Label text="Existencia:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtExistencia" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Activo:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <CheckBox fx:id="chkActivo" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                <Label text="Imagen:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <ImageView fx:id="imgProducto" fitWidth="100" fitHeight="100" preserveRatio="true"
+                           GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <HBox spacing="10">
+                <Button fx:id="btnImagen" text="Seleccionar imagen" onAction="#seleccionarImagen"/>
+
+                <Button fx:id="btnGuardar" text="Guardar" onAction="#guardar">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                            <image>
+                                <Image url="@images/10828385.jpg"/>
+
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="btnCerrar" text="Cerrar" onAction="#cerrar">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                            <image>
+                                <Image url="@images/cerrar-sesion-icon-svg-download-png-3265155.jpg"/>                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+
+            <TableView fx:id="tblProductos" prefHeight="220">
+                <columns>
+                    <TableColumn fx:id="colCodigo" text="Código" prefWidth="80"/>
+                    <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
+                    <TableColumn fx:id="colCategoria" text="Categoría" prefWidth="100"/>
+                    <TableColumn fx:id="colPrecio" text="Precio" prefWidth="90"/>
+                    <TableColumn fx:id="colExistencia" text="Existencia" prefWidth="90"/>
+                    <TableColumn fx:id="colActivo" text="Activo" prefWidth="70"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>
