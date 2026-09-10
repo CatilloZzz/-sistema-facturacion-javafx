@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -57,8 +58,26 @@
 
             <HBox spacing="10">
                 <Button fx:id="btnImagen" text="Seleccionar imagen" onAction="#seleccionarImagen"/>
-                <Button fx:id="btnGuardar" text="Guardar" onAction="#guardar"/>
-                <Button fx:id="btnCerrar" text="Cerrar" onAction="#cerrar"/>
+
+                <Button fx:id="btnGuardar" text="Guardar" onAction="#guardar">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                            <image>
+                                <Image url="@images/10828385.jpg"/>
+
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="btnCerrar" text="Cerrar" onAction="#cerrar">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                            <image>
+                                <Image url="@images/cerrar-sesion-icon-svg-download-png-3265155.jpg"/>                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </HBox>
 
             <TableView fx:id="tblProductos" prefHeight="220">
