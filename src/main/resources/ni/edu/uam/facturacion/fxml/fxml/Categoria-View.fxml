@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ni.edu.uam.facturacion.controller.CategoriaController">
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Nombre:"/>
+                <TextField fx:id="txtNombre" prefWidth="250"/>
+                <CheckBox fx:id="chkActiva" text="Activa" selected="true"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Button text="Guardar" onAction="#guardar"/>
+                <Button text="Actualizar" onAction="#actualizar"/>
+                <Button text="Eliminar" onAction="#eliminar"/>
+                <Button text="Limpiar" onAction="#limpiar"/>
+                <Button text="Cerrar" onAction="#cerrar"/>
+            </HBox>
+
+            <TableView fx:id="tblCategorias" prefHeight="300">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                    <TableColumn fx:id="colNombre" text="Nombre" prefWidth="300"/>
+                    <TableColumn fx:id="colActiva" text="Activa" prefWidth="80"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>

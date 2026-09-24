@@ -1,11 +1,11 @@
 package ni.edu.uam.facturacion.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Producto {
     private Integer id;
     private String codigo;

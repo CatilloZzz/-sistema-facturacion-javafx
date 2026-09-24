@@ -12,12 +12,24 @@ public class MenuPrincipalController {
 
         try {
             SceneManager.abrirVentana(
-                    "/ni/edu/uam/facturacion/fxml/producto-view.fxml",
+                    "/ni/edu/uam/facturacion/fxml/fxml/producto-view.fxml",
                     "Gestión de productos");
         } catch (IOException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR,
                     "No fue posible abrir Productos.").showAndWait();
+        }
+    }
+    @FXML
+    private void abrirCategorias() {
+        try {
+            SceneManager.abrirVentana(
+                    "/ni/edu/uam/facturacion/fxml/categoria-view.fxml",
+                    "Gestión de categorías");
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,
+                    "No fue posible abrir Categorías.").showAndWait();
         }
     }
 

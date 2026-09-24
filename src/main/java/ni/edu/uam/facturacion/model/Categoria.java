@@ -1,7 +1,8 @@
-
 package ni.edu.uam.facturacion.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -12,5 +13,7 @@ public class Categoria {
     private boolean activa;
 
     @Override
-    public String toString() { return nombre; }
+    public String toString() {
+        return nombre;   // lo que muestra el ComboBox
+    }
 }
