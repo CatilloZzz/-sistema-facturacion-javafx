@@ -13,4 +13,7 @@ module ni.edu.uam.sistemafacturacionjavafx {
 
     opens ni.edu.uam.facturacion.model to javafx.base;
     exports ni.edu.uam.facturacion.model;
+
+    opens ni.edu.uam.facturacion.fxml.fxml;
+    opens ni.edu.uam.facturacion.fxml.images;
 }

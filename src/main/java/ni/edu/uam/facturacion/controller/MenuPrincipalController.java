@@ -24,7 +24,7 @@ public class MenuPrincipalController {
     private void abrirCategorias() {
         try {
             SceneManager.abrirVentana(
-                    "/ni/edu/uam/facturacion/fxml/categoria-view.fxml",
+                    "/ni/edu/uam/facturacion/fxml/fxml/Categoria-View.fxml",
                     "Gestión de categorías");
         } catch (IOException e) {
             e.printStackTrace();

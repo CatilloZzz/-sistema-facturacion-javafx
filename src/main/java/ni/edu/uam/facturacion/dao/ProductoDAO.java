@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ProductoDAO {
 
-    // Consulta base reutilizada por listar() y buscar()
+
     private static final String SELECT_BASE = """
         SELECT p.id, p.codigo, p.nombre, p.precio_venta, p.existencia,
                p.ruta_imagen, p.activo,

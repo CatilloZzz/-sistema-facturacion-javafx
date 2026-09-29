@@ -14,6 +14,8 @@
                     <Menu text="Archivo">
                         <items>
                             <MenuItem fx:id="mnuProductos" onAction="#abrirProductos" text="Productos" />
+                            <MenuItem fx:id="mnuCategorias" onAction="#abrirCategorias" text="Categorías" />
+                            <SeparatorMenuItem />
                             <MenuItem fx:id="mnuSalir" onAction="#salir" text="Salir" />
                         </items>
                     </Menu>
@@ -24,22 +26,26 @@
                 <items>
                     <Button fx:id="btnProductos" onAction="#abrirProductos" style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8 16 8 16; -fx-background-radius: 6; -fx-cursor: hand;" text="📦 Productos" />
 
+                    <Button fx:id="btnCategorias" onAction="#abrirCategorias" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8 16 8 16; -fx-background-radius: 6; -fx-cursor: hand;" text="🏷️ Categorías" />
+
                     <Pane HBox.hgrow="ALWAYS" />
 
                     <Button fx:id="btnSalir" onAction="#salir" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8 16 8 16; -fx-background-radius: 6; -fx-cursor: hand;" text="🚪 Salir" />
                 </items>
             </ToolBar>
-         <VBox prefHeight="57.0" prefWidth="900.0">
-            <children>
-               <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../images/supermercados_la_union.jpg" />
-                  </image>
-                  <VBox.margin>
-                     <Insets left="350.0" />
-                  </VBox.margin></ImageView>
-            </children>
-         </VBox>
+
+            <VBox prefHeight="57.0" prefWidth="900.0">
+                <children>
+                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/supermercados_la_union.jpg" />
+                        </image>
+                        <VBox.margin>
+                            <Insets left="350.0" />
+                        </VBox.margin>
+                    </ImageView>
+                </children>
+            </VBox>
         </VBox>
     </top>
 
