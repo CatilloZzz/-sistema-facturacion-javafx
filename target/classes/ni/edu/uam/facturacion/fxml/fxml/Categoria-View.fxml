@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
@@ -20,11 +22,55 @@
             </HBox>
 
             <HBox spacing="10">
-                <Button text="Guardar" onAction="#guardar"/>
-                <Button text="Actualizar" onAction="#actualizar"/>
-                <Button text="Eliminar" onAction="#eliminar"/>
-                <Button text="Limpiar" onAction="#limpiar"/>
-                <Button text="Cerrar" onAction="#cerrar"/>
+                <Button text="Guardar" onAction="#guardar">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/Save.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button text="Actualizar" onAction="#actualizar">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/Reload.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button text="Eliminar" onAction="#eliminar">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/Eliminate.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button text="Limpiar" onAction="#limpiar">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/clean.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button text="Cerrar" onAction="#cerrar">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/closed.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </HBox>
 
             <TableView fx:id="tblCategorias" prefHeight="300">

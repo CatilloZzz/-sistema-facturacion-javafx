@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -21,28 +22,32 @@ import java.sql.SQLException;
 
 public class ProductoController {
 
-    // ---------- Componentes del FXML ----------
     @FXML private TextField txtCodigo, txtNombre, txtPrecio, txtExistencia;
     @FXML private ComboBox<Categoria> cmbCategoria;
     @FXML private CheckBox chkActivo;
     @FXML private ImageView imgProducto;
 
+    @FXML private TextField txtBuscar;
+    @FXML private ComboBox<String> cmbEstado;
+    @FXML private ComboBox<Categoria> cmbFiltroCategoria;
+
     @FXML private TableView<Producto> tblProductos;
     @FXML private TableColumn<Producto, String> colCodigo, colNombre, colCategoria, colPrecio, colActivo;
     @FXML private TableColumn<Producto, Integer> colExistencia;
 
-    // ---------- Datos ----------
     private final ProductoDAO productoDAO = new ProductoDAO();
     private final CategoriaDAO categoriaDAO = new CategoriaDAO();
+
     private final ObservableList<Producto> productos = FXCollections.observableArrayList();
+    private FilteredList<Producto> productosFiltrados;
 
-    private Producto seleccionado;   // producto elegido en la tabla
-    private String rutaImagen;       // ruta de la imagen elegida
+    private static final Categoria TODAS = new Categoria(0, "Todas", true);
 
-    // ---------- Inicio ----------
+    private Producto seleccionado;
+    private String rutaImagen;
+
     @FXML
     public void initialize() {
-        // Categoría está anidada, por eso se usan lambdas en vez de PropertyValueFactory
         colCodigo.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getCodigo()));
         colNombre.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getNombre()));
         colCategoria.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getCategoria().getNombre()));
@@ -50,9 +55,9 @@ public class ProductoController {
         colExistencia.setCellValueFactory(d -> new SimpleObjectProperty<>(d.getValue().getExistencia()));
         colActivo.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().isActivo() ? "Sí" : "No"));
 
-        tblProductos.setItems(productos);
+        productosFiltrados = new FilteredList<>(productos, p -> true);
+        tblProductos.setItems(productosFiltrados);
 
-        // Al seleccionar una fila, se llena el formulario
         tblProductos.getSelectionModel().selectedItemProperty().addListener((obs, anterior, sel) -> {
             if (sel != null) {
                 seleccionado = sel;
@@ -69,22 +74,52 @@ public class ProductoController {
             }
         });
 
+        cmbEstado.setItems(FXCollections.observableArrayList("Todos", "Activos", "Inactivos"));
+        cmbEstado.setValue("Todos");
+
         cargarCategorias();
         cargarProductos();
+
+        txtBuscar.textProperty().addListener((obs, a, b) -> aplicarFiltros());
+        cmbEstado.valueProperty().addListener((obs, a, b) -> aplicarFiltros());
+        cmbFiltroCategoria.valueProperty().addListener((obs, a, b) -> aplicarFiltros());
     }
 
-    // ---------- Acciones ----------
+    private void aplicarFiltros() {
+        String texto = txtBuscar.getText() == null ? "" : txtBuscar.getText().trim().toLowerCase();
+        String estado = cmbEstado.getValue();
+        Categoria catFiltro = cmbFiltroCategoria.getValue();
+
+        productosFiltrados.setPredicate(p -> {
+            boolean coincideTexto = texto.isEmpty()
+                    || p.getCodigo().toLowerCase().contains(texto)
+                    || p.getNombre().toLowerCase().contains(texto)
+                    || p.getCategoria().getNombre().toLowerCase().contains(texto);
+
+            boolean coincideEstado = estado == null
+                    || "Todos".equals(estado)
+                    || ("Activos".equals(estado) && p.isActivo())
+                    || ("Inactivos".equals(estado) && !p.isActivo());
+
+            boolean coincideCategoria = catFiltro == null
+                    || catFiltro == TODAS
+                    || p.getCategoria().getId().equals(catFiltro.getId());
+
+            return coincideTexto && coincideEstado && coincideCategoria;
+        });
+    }
+
     @FXML
     private void guardar() {
-        Producto p = leerFormulario();
+        Producto p = leerFormulario(null);
         if (p == null) return;
         try {
-            productoDAO.guardar(p);                    // INSERT en PostgreSQL
+            productoDAO.guardar(p);
             cargarProductos();
             mensaje(Alert.AlertType.INFORMATION, "Producto agregado correctamente.");
             limpiar();
         } catch (SQLException e) {
-            mensaje(Alert.AlertType.ERROR, "No se pudo guardar (¿código repetido?): " + e.getMessage());
+            mensaje(Alert.AlertType.ERROR, "No se pudo guardar: " + e.getMessage());
         }
     }
 
@@ -94,11 +129,11 @@ public class ProductoController {
             mensaje(Alert.AlertType.WARNING, "Seleccione un producto de la tabla.");
             return;
         }
-        Producto p = leerFormulario();
+        Producto p = leerFormulario(seleccionado.getId());
         if (p == null) return;
         try {
             p.setId(seleccionado.getId());
-            productoDAO.actualizar(p);                 // UPDATE
+            productoDAO.actualizar(p);
             cargarProductos();
             mensaje(Alert.AlertType.INFORMATION, "Producto actualizado correctamente.");
             limpiar();
@@ -120,7 +155,7 @@ public class ProductoController {
         if (confirm.showAndWait().orElse(ButtonType.NO) != ButtonType.YES) return;
 
         try {
-            productoDAO.eliminar(seleccionado.getId()); // DELETE
+            productoDAO.eliminar(seleccionado.getId());
             cargarProductos();
             limpiar();
         } catch (SQLException e) {
@@ -160,45 +195,77 @@ public class ProductoController {
         ((Stage) txtCodigo.getScene().getWindow()).close();
     }
 
-    // ---------- Métodos auxiliares ----------
+    private Producto leerFormulario(Integer idExcluido) {
+        String codigo = txtCodigo.getText().trim();
+        String nombre = txtNombre.getText().trim();
 
-    /** Valida el formulario y arma un Producto. Devuelve null si algo está mal. */
-    private Producto leerFormulario() {
-        if (txtCodigo.getText().isBlank() || txtNombre.getText().isBlank()) {
-            mensaje(Alert.AlertType.WARNING, "Código y nombre son obligatorios.");
+        if (codigo.isEmpty()) {
+            mensaje(Alert.AlertType.WARNING, "El código es obligatorio.");
+            return null;
+        }
+        if (nombre.isEmpty()) {
+            mensaje(Alert.AlertType.WARNING, "El nombre es obligatorio.");
             return null;
         }
         if (cmbCategoria.getValue() == null) {
-            mensaje(Alert.AlertType.WARNING, "Seleccione una categoría.");
+            mensaje(Alert.AlertType.WARNING, "Debe seleccionar una categoría.");
             return null;
         }
+        if (codigoDuplicado(codigo, idExcluido)) {
+            mensaje(Alert.AlertType.ERROR, "Ya existe un producto con el código \"" + codigo + "\".");
+            return null;
+        }
+
+        BigDecimal precio;
         try {
-            BigDecimal precio = new BigDecimal(txtPrecio.getText().trim());
-            int existencia = Integer.parseInt(txtExistencia.getText().trim());
-
-            if (precio.compareTo(BigDecimal.ZERO) <= 0 || existencia < 0) {
-                mensaje(Alert.AlertType.WARNING, "Precio mayor que cero y existencia no negativa.");
-                return null;
-            }
-
-            Producto p = new Producto();
-            p.setCodigo(txtCodigo.getText().trim());
-            p.setNombre(txtNombre.getText().trim());
-            p.setCategoria(cmbCategoria.getValue());
-            p.setPrecioVenta(precio);
-            p.setExistencia(existencia);
-            p.setRutaImagen(rutaImagen);
-            p.setActivo(chkActivo.isSelected());
-            return p;
+            precio = new BigDecimal(txtPrecio.getText().trim());
         } catch (NumberFormatException e) {
-            mensaje(Alert.AlertType.ERROR, "Precio o existencia no válidos.");
+            mensaje(Alert.AlertType.ERROR, "El precio debe ser numérico.");
             return null;
         }
+        if (precio.compareTo(BigDecimal.ZERO) <= 0) {
+            mensaje(Alert.AlertType.WARNING, "El precio debe ser mayor que cero.");
+            return null;
+        }
+
+        int existencia;
+        try {
+            existencia = Integer.parseInt(txtExistencia.getText().trim());
+        } catch (NumberFormatException e) {
+            mensaje(Alert.AlertType.ERROR, "La existencia debe ser un número entero.");
+            return null;
+        }
+        if (existencia < 0) {
+            mensaje(Alert.AlertType.WARNING, "La existencia no puede ser negativa.");
+            return null;
+        }
+
+        Producto p = new Producto();
+        p.setCodigo(codigo);
+        p.setNombre(nombre);
+        p.setCategoria(cmbCategoria.getValue());
+        p.setPrecioVenta(precio);
+        p.setExistencia(existencia);
+        p.setRutaImagen(rutaImagen);
+        p.setActivo(chkActivo.isSelected());
+        return p;
+    }
+
+    private boolean codigoDuplicado(String codigo, Integer idExcluido) {
+        return productos.stream().anyMatch(p ->
+                p.getCodigo().equalsIgnoreCase(codigo) && !p.getId().equals(idExcluido));
     }
 
     private void cargarCategorias() {
         try {
-            cmbCategoria.setItems(FXCollections.observableArrayList(categoriaDAO.listar()));
+            ObservableList<Categoria> categorias =
+                    FXCollections.observableArrayList(categoriaDAO.listar());
+            cmbCategoria.setItems(categorias);
+
+            ObservableList<Categoria> opcionesFiltro = FXCollections.observableArrayList(TODAS);
+            opcionesFiltro.addAll(categorias);
+            cmbFiltroCategoria.setItems(opcionesFiltro);
+            cmbFiltroCategoria.setValue(TODAS);
         } catch (SQLException e) {
             mensaje(Alert.AlertType.ERROR, "Error al cargar categorías: " + e.getMessage());
         }

@@ -1,108 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ni.edu.uam.facturacion.controller.ProductoController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ni.edu.uam.facturacion.controller.ProductoController">
     <center>
         <VBox spacing="10">
             <padding>
-                <Insets top="15" right="15" bottom="15" left="15"/>
+                <Insets bottom="15" left="15" right="15" top="15" />
             </padding>
 
             <GridPane hgap="10" vgap="10">
                 <columnConstraints>
-                    <ColumnConstraints minWidth="100"/>
-                    <ColumnConstraints minWidth="180"/>
-                    <ColumnConstraints minWidth="100"/>
-                    <ColumnConstraints minWidth="180"/>
+                    <ColumnConstraints minWidth="100" />
+                    <ColumnConstraints minWidth="180" />
+                    <ColumnConstraints minWidth="100" />
+                    <ColumnConstraints minWidth="180" />
                 </columnConstraints>
 
-                <Label text="Código:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="txtCodigo" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Código:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="txtCodigo" promptText="P1234" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <Label text="Categoría:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                <ComboBox fx:id="cmbCategoria" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                <Label text="Categoría:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <ComboBox fx:id="cmbCategoria" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
-                <Label text="Nombre:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="txtNombre" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="txtNombre" promptText="Piña " GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="Precio:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                <TextField fx:id="txtPrecio" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                <Label text="Precio:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <TextField fx:id="txtPrecio" promptText="80 C$" GridPane.columnIndex="3" GridPane.rowIndex="1" />
 
-                <Label text="Existencia:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="txtExistencia" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Existencia:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="txtExistencia" promptText="Si" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                <Label text="Activo:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                <CheckBox fx:id="chkActivo" selected="true" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+                <Label text="Activo:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <CheckBox fx:id="chkActivo" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
 
-                <Label text="Imagen:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <ImageView fx:id="imgProducto" fitWidth="100" fitHeight="100" preserveRatio="true"
-                           GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label text="Imagen:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <ImageView fx:id="imgProducto" fitHeight="100" fitWidth="100" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
 
             <HBox spacing="10">
-                <Button fx:id="btnImagen" text="Seleccionar imagen" onAction="#seleccionarImagen"/>
+                <Button fx:id="btnImagen" onAction="#seleccionarImagen" text="Seleccionar imagen" />
 
-                <Button fx:id="btnGuardar" text="Guardar" onAction="#guardar">
+                <Button fx:id="btnGuardar" onAction="#guardar" text="Guardar">
                     <graphic>
-                        <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                        <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
                             <image>
-                                <Image url="@../images/10828385.jpg"/>
+                                <Image url="@../images/Save.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
 
-                <Button fx:id="btnActualizar" text="Actualizar" onAction="#actualizar"/>
-
-                <Button fx:id="btnEliminar" text="Eliminar" onAction="#eliminar"/>
-
-                <Button fx:id="btnLimpiar" text="Limpiar" onAction="#limpiar"/>
-
-                <Button fx:id="btnCerrar" text="Cerrar" onAction="#cerrar">
+                <Button fx:id="btnActualizar" onAction="#actualizar" text="Actualizar">
                     <graphic>
-                        <ImageView fitWidth="16" fitHeight="16" preserveRatio="true">
+                        <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
                             <image>
-                                <Image url="@../images/cerrar-sesion-icon-svg-download-png-3265155.jpg"/>
+                                <Image url="@../images/Reload.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="btnEliminar" onAction="#eliminar" text="Eliminar">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/Eliminate.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="btnLimpiar" onAction="#limpiar" text="Limpiar">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/clean.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="btnCerrar" onAction="#cerrar" text="Cerrar">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/closed.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
             </HBox>
 
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label text="Buscar:"/>
-                <TextField fx:id="txtBuscar" promptText="Código, nombre o categoría" prefWidth="220"/>
-                <Label text="Estado:"/>
-                <ComboBox fx:id="cmbEstado" prefWidth="110"/>
-                <Label text="Categoría:"/>
-                <ComboBox fx:id="cmbFiltroCategoria" prefWidth="150"/>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Buscar:" />
+                <TextField fx:id="txtBuscar" prefWidth="220" promptText="Código, nombre o categoría" />
+                <Label text="Estado:" />
+                <ComboBox fx:id="cmbEstado" prefWidth="110" />
+                <Label text="Categoría:" />
+                <ComboBox fx:id="cmbFiltroCategoria" prefWidth="150" />
             </HBox>
 
             <TableView fx:id="tblProductos" prefHeight="220">
                 <columns>
-                    <TableColumn fx:id="colCodigo" text="Código" prefWidth="80"/>
-                    <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
-                    <TableColumn fx:id="colCategoria" text="Categoría" prefWidth="100"/>
-                    <TableColumn fx:id="colPrecio" text="Precio" prefWidth="90"/>
-                    <TableColumn fx:id="colExistencia" text="Existencia" prefWidth="90"/>
-                    <TableColumn fx:id="colActivo" text="Activo" prefWidth="70"/>
+                    <TableColumn fx:id="colCodigo" prefWidth="80" text="Código" />
+                    <TableColumn fx:id="colNombre" prefWidth="150" text="Nombre" />
+                    <TableColumn fx:id="colCategoria" prefWidth="100" text="Categoría" />
+                    <TableColumn fx:id="colPrecio" prefWidth="90" text="Precio" />
+                    <TableColumn fx:id="colExistencia" prefWidth="90" text="Existencia" />
+                    <TableColumn fx:id="colActivo" prefWidth="70" text="Activo" />
                 </columns>
             </TableView>
         </VBox>
