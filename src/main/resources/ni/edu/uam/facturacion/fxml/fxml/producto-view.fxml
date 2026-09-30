@@ -86,6 +86,15 @@
                 </Button>
             </HBox>
 
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Buscar:"/>
+                <TextField fx:id="txtBuscar" promptText="Código, nombre o categoría" prefWidth="220"/>
+                <Label text="Estado:"/>
+                <ComboBox fx:id="cmbEstado" prefWidth="110"/>
+                <Label text="Categoría:"/>
+                <ComboBox fx:id="cmbFiltroCategoria" prefWidth="150"/>
+            </HBox>
+
             <TableView fx:id="tblProductos" prefHeight="220">
                 <columns>
                     <TableColumn fx:id="colCodigo" text="Código" prefWidth="80"/>
